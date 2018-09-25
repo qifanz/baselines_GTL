@@ -16,19 +16,19 @@ def callback(lcl, _glb):
 def main():
     arg_parser = common_arg_parser()
     args, unknown_args = arg_parser.parse_known_args()
-    if args.eps is not None:
-        final_eps = args.eps
+    if args.exploration_final_eps is not None:
+        exploration_final_eps = args.exploration_final_eps
     else:
-        final_eps = 0.02
-    if args.eps_fraction is not None:
-        final_eps_fraction = args.eps_fraction
+        exploration_final_eps = 0.02
+    if args.exploration_fraction is not None:
+        exploration_fraction = args.exploration_fraction
     else:
-        final_eps_fraction = 0.1
+        exploration_fraction = 0.1
     env = gym.make("CartPole-v0")
 
     ''' for final_eps in np.linspace(0.01, 0.2, 19):
         for final_eps_fraction in np.linspace(0.05, 0.2, 15):'''
-    log_dir='./log/'+str(final_eps)+"_"+str(final_eps_fraction)+'/'
+    log_dir='./log/'+str(exploration_final_eps)+"_"+str(exploration_fraction)+'/'
     logger.configure(log_dir, None)
     act = None
     act = deepq.learn(
@@ -37,8 +37,8 @@ def main():
         lr=1e-3,
         total_timesteps=100000,
         buffer_size=50000,
-        exploration_fraction=final_eps_fraction,
-        exploration_final_eps=final_eps,
+        exploration_fraction=exploration_fraction,
+        exploration_final_eps=exploration_final_eps,
         print_freq=10,
         callback=callback,
         gamma=1.0

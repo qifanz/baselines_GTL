@@ -8,6 +8,6 @@ do
     #for fraction in 0.05 0.1 0.15 0.2
     for fraction in 0.25 0.3 0.35
     do
-        python ./experiments/train_cartpole.py --eps=$eps --eps_fraction=$fraction
+        python ./experiments/train_cartpole.py --exploration_final_eps=$eps --exploration_fraction=$fraction
     done
 done
