@@ -48,8 +48,8 @@ def main():
         callback=callback,
         gamma=1.0
     )
-    print("Saving model to cartpole_model.pkl")
-    act.save(log_dir+"cartpole_model.pkl")
+    # print("Saving model to cartpole_model.pkl")
+    # act.save(log_dir+"cartpole_model.pkl")
 
 
 if __name__ == '__main__':

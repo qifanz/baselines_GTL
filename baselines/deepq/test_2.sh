@@ -2,7 +2,7 @@
 
 trap exit SIGINT;
 
-for tentative in 1 2
+for tentative in 3 4
 do
     # for eps in 0.1 0.15 0.2 0.25
     for eps in 0.01 0.04 0.07 0.1 0.15 0.2 0.25
