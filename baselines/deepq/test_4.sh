@@ -13,4 +13,4 @@ do
             python ./experiments/train_cartpole.py --exploration_final_eps=$eps --exploration_fraction=$fraction --tentative=$tentative
         done
     done
-done#!/usr/bin/env bash
+done
