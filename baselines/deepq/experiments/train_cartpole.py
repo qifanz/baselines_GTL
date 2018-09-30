@@ -3,6 +3,7 @@ import gym
 from baselines import deepq
 from baselines import logger
 from baselines.common.cmd_util import common_arg_parser, parse_unknown_args, make_vec_env
+import os
 
 
 import numpy as np
@@ -24,11 +25,15 @@ def main():
         exploration_fraction = args.exploration_fraction
     else:
         exploration_fraction = 0.1
+    if args.tentative is not None:
+        tentative=args.tentative
+    else:
+        tentative = 1
     env = gym.make("CartPole-v0")
 
     ''' for final_eps in np.linspace(0.01, 0.2, 19):
         for final_eps_fraction in np.linspace(0.05, 0.2, 15):'''
-    log_dir='./log/'+str(exploration_final_eps)+"_"+str(exploration_fraction)+'/'
+    log_dir = os.path.join('./log', str(exploration_final_eps)+"_"+str(exploration_fraction),str(tentative))
     logger.configure(log_dir, None)
     act = None
     act = deepq.learn(
