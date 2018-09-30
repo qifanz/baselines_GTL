@@ -105,6 +105,7 @@ def common_arg_parser():
     parser.add_argument('--play', default=False, action='store_true')
     parser.add_argument('--exploration_final_eps', default=0.02, type=float)
     parser.add_argument('--exploration_fraction', default=0.1, type=float)
+    parser.add_argument('--tentative', default=1,type=int)
 
     return parser
 
