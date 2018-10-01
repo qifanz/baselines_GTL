@@ -42,7 +42,7 @@ def main():
     ''' for final_eps in np.linspace(0.01, 0.2, 19):
         for final_eps_fraction in np.linspace(0.05, 0.2, 15):'''
     #log_dir = os.path.join('./log', str(prioritized_replay)+"_"+str(prioritized_replay_alpha),str(tentative))
-    logger.configure('.log/test', None, 'tttest')
+    logger.configure('./log/test', None, 'tttest')
     act = None
     act = deepq.learn(
         env,
