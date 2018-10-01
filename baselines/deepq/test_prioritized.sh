@@ -8,5 +8,5 @@ do
             echo $target
             mkdir -p $target
             chmod 777 $target
-    python ./experiments/train_cartpole.py prioritized_replay=True --tentative=$tentative
+    python ./experiments/train_cartpole.py --prioritized_replay=True --tentative=$tentative
 done
