@@ -344,7 +344,7 @@ class Logger(object):
             if isinstance(fmt, SeqWriter):
                 fmt.writeseq(map(str, args))
 
-def configure(dir=None, format_strs=None):
+def configure(dir=None, format_strs=None, suffix=''):
     if dir is None:
         dir = os.getenv('OPENAI_LOGDIR')
     if dir is None:
@@ -360,8 +360,9 @@ def configure(dir=None, format_strs=None):
     for varname in ['PMI_RANK', 'OMPI_COMM_WORLD_RANK']:
         if varname in os.environ:
             rank = int(os.environ[varname])
+    log_suffix=suffix
     if rank > 0:
-        log_suffix = "-rank%03i" % rank
+        log_suffix = log_suffix + "-rank%03i" % rank
 
     if format_strs is None:
         if rank == 0:
