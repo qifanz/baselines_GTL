@@ -21,6 +21,14 @@ def main():
         exploration_final_eps = args.exploration_final_eps
     else:
         exploration_final_eps = 0.02
+    if args.prioritized_replay is not None:
+        prioritized_replay=args.prioritized_replay
+    else:
+        prioritized_replay=False
+    if args.prioritized_replay_alpha is not None:
+        prioritized_replay_alpha=args.prioritized_replay_alpha
+    else:
+        prioritized_replay_alpha=0.4
     if args.exploration_fraction is not None:
         exploration_fraction = args.exploration_fraction
     else:
@@ -46,6 +54,8 @@ def main():
         exploration_final_eps=exploration_final_eps,
         print_freq=10,
         callback=callback,
+        prioritized_replay=prioritized_replay,
+        prioritized_replay_alpha=prioritized_replay_alpha,
         gamma=1.0
     )
     # print("Saving model to cartpole_model.pkl")
