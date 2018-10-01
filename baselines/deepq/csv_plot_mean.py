@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import os
 import numpy as np
 
+TENTATIVES=8
+
 # Read the eps_fraction_mean.csv which contains different combinations of eps and fraction
 log = [l.split("\n")[0].split(",") for l in open(os.path.join('./log', 'eps_fraction_mean.csv')).readlines()]
 log = log[1:]  # ignore the first line which is a string comment
@@ -14,22 +16,25 @@ log = np.hstack((log, np.zeros((log.shape[0], 1), dtype=np.float32)))
 # For each row (eps,fraction), read the corresponding csv file and add the max reward to the log array
 # TODO: replace max reward by mean max reward of different tentatives
 for i in range (0,len(log),1):
-    # Dir name is eps_fraction
-    dir = os.path.join(log[i][0]+'_'+log[i][1])
-    log2 = [l.split("\n")[0].split(",") for l in open(os.path.join('./log', dir, 'progress.csv')).readlines()]
-    count = 0
-    # Look for the index of mean 100 episodes reward
-    for j in log2[0]:
-        if j == 'mean 100 episode reward':
-            index_reward = count
-        count=count+1
+    sum_mean=0
+    for tentative in range(1,TENTATIVES+1,1):
+        # Dir name is eps_fraction/tentative
+        dir = log[i][0]+'_'+log[i][1]
+        log2 = [l.split("\n")[0].split(",") for l in open(os.path.join('./log', dir, str(tentative),'progress.csv')).readlines()]
+        count = 0
+        # Look for the index of mean 100 episodes reward
+        for j in log2[0]:
+            if j == 'mean 100 episode reward':
+                index_reward = count
+            count=count+1
 
-    # Look for the max mean 100 episodes reward
-    log2 = log2[1:]
-    log2 = np.array(log2)
-    mean_rew_100 = log2[:, index_reward].astype(np.float32)
-    max_reward=np.max(mean_rew_100)
-    log[i][2]=max_reward
+        # Look for the max mean 100 episodes reward
+        log2 = log2[1:]
+        log2 = np.array(log2)
+        mean_rew_100 = log2[:, index_reward].astype(np.float32)
+        max_reward=np.max(mean_rew_100)
+        sum_mean=sum_mean+max_reward
+    log[i][2]=sum_mean/TENTATIVES
 
 
 # For each eps, plot the evolution of reward according to fraction
@@ -41,7 +46,6 @@ for eps in (0.01, 0.04, 0.07, 0.1, 0.15, 0.2, 0.25):
         if abs(log[i][0].astype(np.float32) - eps)<0.001:
             fraction.append(log[i][1].astype(np.float32))
             mean.append(log[i][2].astype(np.float32))
-
     plt.figure()
     plt.ylabel('Mean rew 100')
     plt.xlabel('fraction')
