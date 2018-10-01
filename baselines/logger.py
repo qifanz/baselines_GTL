@@ -174,11 +174,11 @@ def make_output_format(format, ev_dir, log_suffix=''):
     if format == 'stdout':
         return HumanOutputFormat(sys.stdout)
     elif format == 'log':
-        return HumanOutputFormat(osp.join(ev_dir, 'log%s.txt' % log_suffix))
+        return HumanOutputFormat(osp.join(ev_dir, 'log_%s.txt' % log_suffix))
     elif format == 'json':
-        return JSONOutputFormat(osp.join(ev_dir, 'progress%s.json' % log_suffix))
+        return JSONOutputFormat(osp.join(ev_dir, 'progress_%s.json' % log_suffix))
     elif format == 'csv':
-        return CSVOutputFormat(osp.join(ev_dir, 'progress%s.csv' % log_suffix))
+        return CSVOutputFormat(osp.join(ev_dir, 'progress_%s.csv' % log_suffix))
     elif format == 'tensorboard':
         return TensorBoardOutputFormat(osp.join(ev_dir, 'tb%s' % log_suffix))
     else:

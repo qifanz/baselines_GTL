@@ -28,7 +28,19 @@ def main():
     if args.prioritized_replay_alpha is not None:
         prioritized_replay_alpha=args.prioritized_replay_alpha
     else:
-        prioritized_replay_alpha=0.4
+        prioritized_replay_alpha=0.6
+    if args.prioritized_replay_beta0 is not None:
+        prioritized_replay_beta0=args.prioritized_replay_beta0
+    else:
+        prioritized_replay_beta0=0.4
+    if args.prioritized_replay_beta_iters is not None:
+        prioritized_replay_beta_iters=args.prioritized_replay_beta_iters
+    else:
+        prioritized_replay_beta_iters=None
+    if args.prioritized_replay_alpha is not None:
+        prioritized_replay_eps=args.prioritized_replay_eps
+    else:
+        prioritized_replay_alpha=1e-6
     if args.exploration_fraction is not None:
         exploration_fraction = args.exploration_fraction
     else:
@@ -41,8 +53,8 @@ def main():
 
     ''' for final_eps in np.linspace(0.01, 0.2, 19):
         for final_eps_fraction in np.linspace(0.05, 0.2, 15):'''
-    #log_dir = os.path.join('./log', str(prioritized_replay)+"_"+str(prioritized_replay_alpha),str(tentative))
-    logger.configure('./log/test', None, 'tttest')
+    log_dir = os.path.join('./log', str(prioritized_replay)+"_"+str(prioritized_replay_alpha)+"_"+str(prioritized_replay_beta0)+"_"+str(prioritized_replay_beta_iters)+"_"+str(prioritized_replay_eps))
+    logger.configure('./log/test', None, str(tentative))
     act = None
     act = deepq.learn(
         env,
