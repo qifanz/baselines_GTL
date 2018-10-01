@@ -37,10 +37,10 @@ def main():
         prioritized_replay_beta_iters=args.prioritized_replay_beta_iters
     else:
         prioritized_replay_beta_iters=None
-    if args.prioritized_replay_alpha is not None:
+    if args.prioritized_replay_eps is not None:
         prioritized_replay_eps=args.prioritized_replay_eps
     else:
-        prioritized_replay_alpha=1e-6
+        prioritized_replay_eps=1e-6
     if args.exploration_fraction is not None:
         exploration_fraction = args.exploration_fraction
     else:
