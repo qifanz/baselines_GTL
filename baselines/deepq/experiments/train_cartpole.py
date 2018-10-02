@@ -25,6 +25,14 @@ def main():
         exploration_fraction = args.exploration_fraction
     else:
         exploration_fraction = 0.1
+    if args.learning_starts is not None:
+      learning_starts = args.learning_starts
+    else:
+      learning_starts = 1000
+    if args.buffer_size is not None:
+      buffer_size = args.buffer_size
+    else:
+      buffer_size = 50000
     if args.tentative is not None:
         tentative=args.tentative
     else:
@@ -33,7 +41,7 @@ def main():
 
     ''' for final_eps in np.linspace(0.01, 0.2, 19):
         for final_eps_fraction in np.linspace(0.05, 0.2, 15):'''
-    log_dir = os.path.join('./log', str(exploration_final_eps)+"_"+str(exploration_fraction),str(tentative))
+    log_dir = os.path.join('./log', str(learning_starts)+"_"+str(buffer_size),str(tentative))
     logger.configure(log_dir, None)
     act = None
     act = deepq.learn(
@@ -41,7 +49,8 @@ def main():
         network='mlp',
         lr=1e-3,
         total_timesteps=100000,
-        buffer_size=50000,
+        buffer_size=buffer_size,
+        learning_starts=learning_starts,
         exploration_fraction=exploration_fraction,
         exploration_final_eps=exploration_final_eps,
         print_freq=10,

@@ -7,13 +7,13 @@ chmod 777 'log'
 
 for tentative in 1 2 3 4 5 6 7 8
 do
-    # for eps in 0.1 0.15 0.2 0.25
-    for eps in 0.01 0.04 0.07 0.1 0.15 0.2 0.25
+    # for learning_starts in 100 500 800 1000 1200 1500
+    for lngs in 100 500 800 1000 1200 1500
     do
-        #for fraction in 0.05 0.1 0.15 0.2
-        for fraction in 0.05 0.1 0.15 0.2 0.25 0.3 0.35
+        #for buffer_size in 25000 35000 50000 65000 75000 100000
+        for buffs in 25000 35000 50000 65000 75000 100000
         do
-            target="./log/$eps"\_"$fraction/$tentative"
+            target="./log/$lngs"\_"$buffs/$tentative"
             echo $target
             mkdir -p $target
             chmod 777 $target

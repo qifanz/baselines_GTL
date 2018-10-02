@@ -106,6 +106,9 @@ def common_arg_parser():
     parser.add_argument('--exploration_final_eps', default=0.02, type=float)
     parser.add_argument('--exploration_fraction', default=0.1, type=float)
     parser.add_argument('--tentative', default=1,type=int)
+    parser.add_argument('--learning_starts', default=1000, type=int)
+    parser.add_argument('--buffer_size', default=50000, type=int)
+
 
     return parser
 
