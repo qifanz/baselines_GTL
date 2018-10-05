@@ -29,11 +29,18 @@ def main():
         tentative=args.tentative
     else:
         tentative = 1
+    if args.param_noise is not None:
+        param_noise = args.param_noise
+    else:
+        param_noise = False
     env = gym.make("CartPole-v0")
 
     ''' for final_eps in np.linspace(0.01, 0.2, 19):
         for final_eps_fraction in np.linspace(0.05, 0.2, 15):'''
-    log_dir = os.path.join('./log', str(exploration_final_eps)+"_"+str(exploration_fraction),str(tentative))
+    if param_noise:
+        log_dir = os.path.join('./log', str(exploration_final_eps) + "_" + str(exploration_fraction)+"_noise", str(tentative))
+    else:
+        log_dir = os.path.join('./log', str(exploration_final_eps)+"_"+str(exploration_fraction),str(tentative))
     logger.configure(log_dir, None)
     act = None
     act = deepq.learn(
@@ -46,7 +53,8 @@ def main():
         exploration_final_eps=exploration_final_eps,
         print_freq=10,
         callback=callback,
-        gamma=1.0
+        gamma=1.0,
+        param_noise=param_noise
     )
     # print("Saving model to cartpole_model.pkl")
     # act.save(log_dir+"cartpole_model.pkl")

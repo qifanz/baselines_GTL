@@ -3,7 +3,6 @@ mpl.use('Agg')
 import matplotlib.pyplot as plt
 import os
 import numpy as np
-
 TENTATIVES=8
 
 # Read the eps_fraction_mean.csv which contains different combinations of eps and fraction
