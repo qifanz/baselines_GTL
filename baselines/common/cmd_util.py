@@ -112,6 +112,7 @@ def common_arg_parser():
     parser.add_argument('--prioritized_replay_beta0', default=0.4, type=float)
     parser.add_argument('--prioritized_replay_beta_iters', default=None, type=int)
     parser.add_argument('--prioritized_replay_eps', default=1e-6, type=float)
+    parser.add_argument('--experiment', default=0, type=int)
 
 
     return parser
