@@ -14,14 +14,14 @@ for exp in range(1,5):
 
     for root, dirs, files in list_dirs:
 
-        param=[0]*len(dirs)
+        param=['']*len(dirs)
 
         list_best_rewards=[0]*len(dirs)
         list_steps_best_reward=[0]*len(dirs)
         index=-1
         for d in dirs:
             index+=1
-            print(d)
+            #print(d)
             best_reward=0
             step_best_reward=0
             filenames = listdir(os.path.join(root,d))
@@ -48,8 +48,15 @@ for exp in range(1,5):
             step_best_reward=step_best_reward/len(csvs)
             list_best_rewards[index]=best_reward
             list_steps_best_reward[index]=step_best_reward
-            param[index]=index
-        if len(param)!=0:
+            param[index]=d
+        if len(param)>1:
+            l0=param[0].split('_')
+            l1=param[1].split('_')
+            index_param=([x for x in range(len(l1)) if l0[x]!=l1[x]])[0]
+            param=([float(param[i].split('_')[index_param]) for i in range(len(param)) ])
+            param.sort()
+            print(param)
+
             plt.figure()
 
             fig, ax1= plt.subplots()
