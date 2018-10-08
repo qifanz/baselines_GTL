@@ -3,7 +3,7 @@ mpl.use('Agg')
 import matplotlib.pyplot as plt
 import os
 import numpy as np
-TENTATIVES=8
+TENTATIVES=2
 
 # Read the eps_fraction_mean.csv which contains different combinations of eps and fraction
 log = [l.split("\n")[0].split(",") for l in open(os.path.join('./log', 'eps_fraction_mean.csv')).readlines()]
@@ -18,7 +18,7 @@ for i in range (0,len(log),1):
     sum_mean=0
     for tentative in range(1,TENTATIVES+1,1):
         # Dir name is eps_fraction/tentative
-        dir = log[i][0]+'_'+log[i][1]
+        dir = log[i][0]+'_'+log[i][1]+'_noise'
         log2 = [l.split("\n")[0].split(",") for l in open(os.path.join('./log', dir, str(tentative),'progress.csv')).readlines()]
         count = 0
         # Look for the index of mean 100 episodes reward
@@ -53,7 +53,7 @@ for eps in (0.01, 0.04, 0.07, 0.1, 0.15, 0.2, 0.25):
     xs, ys = zip(*sorted(zip(fraction, mean)))
     plt.plot(xs, ys, label=str(eps))
 plt.legend(loc='best')
-plt.savefig(os.path.join('./log', 'eps.png'))
+plt.savefig(os.path.join('./log', 'eps_noise.png'))
 plt.close()
 
 plt.figure()
@@ -74,5 +74,5 @@ for fraction in (0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35):
     xs, ys = zip(*sorted(zip(eps, mean)))
     plt.plot(xs, ys, label=str(fraction))
 plt.legend(loc='best')
-plt.savefig(os.path.join('./log', 'fraction.png'))
+plt.savefig(os.path.join('./log', 'fraction_noise.png'))
 plt.close()
