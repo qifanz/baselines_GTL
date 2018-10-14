@@ -6,10 +6,8 @@ from math import floor
 from os import listdir
 import numpy as np
 
-a=100000
-b=1000
 
-for exp in range(1,5):
+for exp in range(1,9):
     list_dirs=os.walk('./log/'+str(exp))
 
     for root, dirs, files in list_dirs:
@@ -60,12 +58,12 @@ for exp in range(1,5):
             plt.figure()
 
             fig, ax1= plt.subplots()
-            ax1.plot(param,list_best_rewards,'blue')
+            ax1.plot(param,list_best_rewards,'bo')
             ax1.set_xlabel('param')
             ax1.set_ylabel('average best reward', color='blue')
             ax1.tick_params('y', colors='blue')
             ax2=ax1.twinx()
-            ax2.plot(param, list_steps_best_reward, 'red')
+            ax2.plot(param, list_steps_best_reward, 'ro')
             ax2.set_ylabel('step', color='red')
             ax2.tick_params('y', colors='red')
             fig.tight_layout()

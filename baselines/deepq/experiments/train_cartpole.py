@@ -54,6 +54,10 @@ def main():
     else:
         experiment=0
     env = gym.make("CartPole-v0")
+    env.seed(42)
+    env.reset()
+    print(env.step(0))
+
 
     ''' for final_eps in np.linspace(0.01, 0.2, 19):
         for final_eps_fraction in np.linspace(0.05, 0.2, 15):'''
