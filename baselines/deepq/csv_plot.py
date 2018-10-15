@@ -14,9 +14,13 @@ for root, dirs, files in list_dirs:
         root_depth = len('./log'.split(os.path.sep))
         
         if depth == root_depth+1:
-            mean_max_rew = np.zeros((8,2))#Associate max_rew from each tentative to its step    	    
+            mean_max_rew = np.zeros((8,2))#Associate max_rew from each tentative to its step
+            lngs =str(d).split("_")[0]
+            buffs = str(d).split("_")[1]
+            steps = []
+            mean_rew_100 = []
 
-            for tentative in range(1,3,1):
+            for tentative in range(1,9,1):
                 log = [l.split("\n")[0].split(",") for l in open(os.path.join(root, d, str(tentative), 'progress.csv')).readlines()]
                 print("opened "+str(os.path.join(root, d, str(tentative), 'progress.csv')))
                 count=0
@@ -31,8 +35,14 @@ for root, dirs, files in list_dirs:
                 
                 log = np.array(log)
                 
-                #steps = log[:, index_steps].astype(np.float32)
+                steps = log[:, index_steps].astype(np.float32)
                 mean_rew_100 = log[:, index_mean].astype(np.float32)
+
+                tmp_steps = steps
+                tmp_mean = mean_rew_100
+
+                steps = (steps + tmp_steps)/2
+                mean_rew_100 = mean_rew_100 + tmp_mean
                 
                 max_rew = 0 #to retrieve the max reward
                 
@@ -70,7 +80,7 @@ for lngs in (100, 500, 800, 1000, 1200, 1500):
     plt.ylabel('Mean rew 100')
     plt.xlabel('Buffer_size')
     plt.title('Learning_starts = '+str(lngs))
-    plt.plot(buffer_size,meanB)
+    plt.scatter(buffer_size,meanB)
     plt.savefig(os.path.join('./log','lngs='+str(lngs)+'.png'))
     plt.close()
 
@@ -88,7 +98,7 @@ for buffs in (25000, 35000, 50000, 65000, 75000, 100000):
     plt.ylabel('Mean rew 100')
     plt.xlabel('Learning_starts')
     plt.title('Buffer_size = '+str(buffs))
-    plt.plot(learning_starts,meanL)
+    plt.scatter(learning_starts,meanL)
     plt.savefig(os.path.join('./log','buffs='+str(buffs)+'.png'))
     plt.close()
 
