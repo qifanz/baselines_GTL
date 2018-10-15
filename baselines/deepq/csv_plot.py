@@ -4,13 +4,15 @@ import matplotlib.pyplot as plt
 import os
 import numpy as np
 
+TENTATIVE=8
+NOISE_TENTATIVE=4
 list_dirs=os.walk('./log')
 for root, dirs, files in list_dirs:
     for d in dirs:
         depth = len(os.path.join(root,d).split(os.path.sep))
         root_depth = len('./log'.split(os.path.sep))
         if depth == root_depth+1:
-            for tentative in range(1,9,1):
+            for tentative in range(1,TENTATIVE+1,1):
                 try:
                     log = [l.split("\n")[0].split(",") for l in open(os.path.join(root, d, str(tentative), 'progress.csv')).readlines()]
                     print("opened "+str(os.path.join(root, d, str(tentative), 'progress.csv')))
@@ -29,17 +31,6 @@ for root, dirs, files in list_dirs:
                     # print(len(log))
                     steps = log[:, index_steps].astype(np.float32)
                     mean_rew_100 = log[:, index_mean].astype(np.float32)
-                    # print(log)
-
-                    #print("****************************steps********************************************")
-
-                    # print(steps)
-                    # print(np.max(steps))
-
-                    #print("**************************mean***************")
-                    # print(mean_rew_100)
-                    # print(np.max(mean_rew_100))
-
                     plt.figure()
                     plt.ylabel('Mean rew 100')
                     plt.xlabel('Steps')
