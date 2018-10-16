@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 import os
 import numpy as np
 
-list_dirs=os.walk('./log')
+list_dirs=os.walk('./log/11')
 for root, dirs, files in list_dirs:
     for d in dirs:
-        log = [l.split("\n")[0].split(",") for l in open(os.path.join(root, d,'progress.csv')).readlines()]
+        log = [l.split("\n")[0].split(",") for l in open(os.path.join(root, d,'progress_3.csv')).readlines()]
 
         count=0
         for i in log[0]:
@@ -41,6 +41,4 @@ for root, dirs, files in list_dirs:
         plt.title('DQN - Mean reward for the least 100 episodes')
         plt.axis([0, np.max(steps), 0, np.max(mean_rew_100)])
         plt.scatter(steps, mean_rew_100)
-        plt.savefig(os.path.join(root, d, 'toto.png'))
-
-
+        plt.savefig(os.path.join(root, d, 'Mean reward for progress 3.png'))
