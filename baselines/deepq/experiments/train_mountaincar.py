@@ -1,7 +1,11 @@
 import gym
 
 from baselines import deepq
+from baselines import logger
 from baselines.common import models
+from baselines.common.cmd_util import common_arg_parser, parse_unknown_args, make_vec_env
+import os
+
 
 
 def main():
@@ -55,9 +59,9 @@ def main():
         lr=1e-3,
         prioritized_replay=prioritized_replay,
         prioritized_replay_alpha=prioritized_replay_alpha,
-        prioritized_replay_beta0=prioritized_replay_beta0
-        prioritized_replay_beta_iters=prioritized_replay_beta_iters
-        prioritized_replay_eps=prioritized_replay_eps
+        prioritized_replay_beta0=prioritized_replay_beta0,
+        prioritized_replay_beta_iters=prioritized_replay_beta_iters,
+        prioritized_replay_eps=prioritized_replay_eps,
         total_timesteps=100000,
         buffer_size=50000,
         exploration_fraction=0.1,
