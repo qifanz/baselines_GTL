@@ -42,7 +42,7 @@ def main():
         env,
         network=models.mlp(num_hidden=64, num_layers=1),
         lr=1e-3,
-        total_timesteps=1000,
+        total_timesteps=1000000,
         buffer_size=50000,
         exploration_fraction=exploration_fraction,
         exploration_final_eps=exploration_final_eps,
@@ -50,8 +50,8 @@ def main():
         print_freq=10,
         param_noise=param_noise
     )
-    print("Saving model to mountaincar_model.pkl")
-    act.save("mountaincar_model.pkl")
+    # print("Saving model to mountaincar_model.pkl")
+    # act.save("mountaincar_model.pkl")
 
 
 if __name__ == '__main__':
