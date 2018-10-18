@@ -26,6 +26,8 @@ def main():
     else:
         param_noise = False
 
+    print('PARAM NOISE',args.param_noise)
+
     log_dir = os.path.join('./log', 'mountaincar',
                            str(exploration_final_eps),
                            str(exploration_fraction),
@@ -40,7 +42,7 @@ def main():
         env,
         network=models.mlp(num_hidden=64, num_layers=1),
         lr=1e-3,
-        total_timesteps=1000000,
+        total_timesteps=1000,
         buffer_size=50000,
         exploration_fraction=exploration_fraction,
         exploration_final_eps=exploration_final_eps,
