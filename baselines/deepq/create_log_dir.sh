@@ -20,7 +20,7 @@ chmod 777 'log'
 #done
 
 
-for tentative in 1
+for tentative in 1 2 3
 do
     for eps in 0.04 0.07 0.1 0.15 0.2 0.25
     do
