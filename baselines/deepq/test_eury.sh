@@ -9,7 +9,9 @@ do
     do
       for buffs in 25000 35000 50000 65000 75000 100000
       do
-        python ./experiments/train_cartpole.py --learning_starts=$lngs --buffer_size=$buffs --tentative=$tentative
+        #python ./experiments/train_cartpole.py --learning_starts=$lngs --buffer_size=$buffs --tentative=$tentative
+        python ./experiments/train_mountaincar.py --learning_starts=$lngs --buffer_size=$buffs --tentative=$tentative
+
       done
     done
 done
