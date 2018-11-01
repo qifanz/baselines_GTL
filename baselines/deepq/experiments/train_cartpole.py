@@ -66,6 +66,7 @@ def main():
     act = None
     act = deepq.learn(
         env,
+	seed = 42
         network='mlp',
         lr=1e-3,
         total_timesteps=100000,
@@ -76,6 +77,9 @@ def main():
         callback=callback,
         prioritized_replay=prioritized_replay,
         prioritized_replay_alpha=prioritized_replay_alpha,
+        prioritized_replay_beta0=prioritized_replay_beta0
+        prioritized_replay_beta_iters=prioritized_replay_beta_iters
+        prioritized_replay_eps=prioritized_replay_eps
         gamma=1.0
     )
     # print("Saving model to cartpole_model.pkl")

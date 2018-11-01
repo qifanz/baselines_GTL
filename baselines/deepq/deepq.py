@@ -91,7 +91,7 @@ def load_act(path):
 
 def learn(env,
           network,
-          seed=None,
+          seed=42,
           lr=5e-4,
           total_timesteps=100000,
           buffer_size=50000,
