@@ -23,7 +23,7 @@ for eps in (0.01, 0.04, 0.07, 0.1, 0.15, 0.2, 0.25):
         # print('index mean = ' + str(index_mean))
         # print('index steps = ' + str(index_steps))
         log = log[1:]  # ignore the first line which is a string comment
-        # colum order q_max,q_min,episodes,mean 100 episode reward,steps,% time spent exploring
+        # colum order q_max,q_min,episodes,mean 100 episode reward,steps,% time spent exploring`
         log = np.array(log)
         # print(len(log))
         steps = log[:, index_steps].astype(np.float32)
