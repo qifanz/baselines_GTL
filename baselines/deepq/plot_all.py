@@ -6,15 +6,15 @@ from math import floor
 from os import listdir
 import numpy as np
 
-a=100000
+a=1000000
 b=2000
-for num_exp in range(1,9):
+for num_exp in range(0,4):
     plt.figure(num=None, figsize=(16, 12), dpi=80, facecolor='w', edgecolor='k')
 
     plt.ylabel('Mean rew 100')
     plt.xlabel('Episode')
     plt.title('DQN - Mean reward for the least 100 episodes on 5 episodes')
-    list_dirs=os.walk('./log/'+str(num_exp))
+    list_dirs=os.walk('./log_car/'+str(num_exp))
     for root, dirs, files in list_dirs:
         for d in dirs:
             print(d)
@@ -25,6 +25,7 @@ for num_exp in range(1,9):
             filenames = listdir(os.path.join(root,d))
             csvs = [ filename for filename in filenames if filename.endswith( ".csv" ) ]
             for csv in csvs:
+               print(csv)
                log = [l.split("\n")[0].split(",") for l in open(os.path.join(root,d,csv)).readlines()]
                count=0
                #print(len(mean_reward))
@@ -39,16 +40,15 @@ for num_exp in range(1,9):
                log = log[1:]  # ignore the first line which is a string comment
                # colum order q_max,q_min,episodes,mean 100 episode reward,steps,% time spent exploring
                log = np.array(log)
-               #print(len(log))
+               #print(log)
                temp_steps = log[:, index_steps].astype(np.float32)
-               #print(len(temp_steps))
+               print(len(temp_steps))
+               print(temp_steps[-1])
                mean_rew_100 = log[:, index_mean].astype(np.float32)
-
+               print(len(mean_rew_100))
+               print(len(mean_reward))
                for t in range(0,len(mean_rew_100)):
                   t_on_b=floor((temp_steps[t] // b))
-                  #print(t_on_b)
-                  #print(mean_rew_100[t])
-
                   mean_reward[t_on_b]+=mean_rew_100[t]
                   steps_counts[t_on_b]+=1
             for st in range(0,len(steps)):
@@ -58,7 +58,7 @@ for num_exp in range(1,9):
 
 
 
-            plt.plot(steps, mean_reward,'-o', label=d)
+            plt.plot(steps, mean_reward,'-o', label=d+csv)
             plt.legend()
-    print('over with this exp')
-    plt.savefig(os.path.join('./log/'+'all_full' + str(num_exp)+'_points'))
+    print('over with this exp'+os.path.join('./log/'+'all_full' + str(num_exp)+'_points'))
+    plt.savefig(os.path.join('./log_car/'+'all_full' + str(num_exp)+'_points'))

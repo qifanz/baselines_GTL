@@ -9,10 +9,12 @@ import numpy as np
 list_colors=['b-', 'g-','r-','c-','m-','y-','k-','w-','olive-','orange-','grey-','peru-']
 list_exp=['Prioritzed', 'alpha', 'beta', 'iters', 'eps']
 
-for exp in range(11,12):
-    list_dirs=os.walk('./log/'+str(exp))
+for exp in range(0,4):
+    list_dirs=os.walk('./log_car/'+str(exp))
+
 
     for root, dirs, files in list_dirs:
+        print(dirs)
         list_steps_best_reward=[[] for x in range(10)]
         list_best_rewards= [[] for x in range(10)]
         param=['']*len(dirs)
@@ -23,12 +25,11 @@ for exp in range(11,12):
             index+=1
             filenames = listdir(os.path.join(root,d))
             csvs = [ filename for filename in filenames if filename.endswith( ".csv" ) ]
+            print('len is '+str(len(csvs)))
             best_reward=[0]*len(csvs)
             step_best_reward=[0]*len(csvs)
-
             index_csv=-1
             for csv in csvs:
-               print('found one')
                index_csv+=1
                log = [l.split("\n")[0].split(",") for l in open(os.path.join(root,d,csv)).readlines()]
                count=0
@@ -57,17 +58,17 @@ for exp in range(11,12):
             index_param=([x for x in range(len(l1)) if l0[x]!=l1[x]])[0]
             param=([float(param[i].split('_')[index_param]) for i in range(len(param)) ])
             param.sort()
-
             plt.figure()
-            for num in range(0, 9):
+            for num in range(0, 4):
                 print(num)
                 if len(list_best_rewards[num])!=0:
                     print(param)
                     print(list_best_rewards[num])
+                    print(len(param)==len(list_best_rewards[num]))
                     plt.scatter(param, list_best_rewards[num],marker="o")
             plt.title("Changing param "+list_exp[index_param])
             plt.show()
 
-            plt.savefig(os.path.join('./log/'+'all_means' + str(exp)+'_points'))
+            plt.savefig(os.path.join('./log_car/'+'all_means' + str(exp)+'_points'))
+            print(os.path.join('./log_car/'+'all_means' + str(exp)+'_points'))
             plt.close()
-            

@@ -6,16 +6,18 @@ from baselines.common.atari_wrappers import make_atari
 
 def main():
     logger.configure()
-    env = make_atari('PongNoFrameskip-v4')
+    #env = make_atari('PongNoFrameskip-v4')
+    env = make_atari('BreakoutNoFrameskip-v4')
     env = bench.Monitor(env, logger.get_dir())
     env = deepq.wrap_atari_dqn(env)
-
+    logger.configure('../log_breakout', None)
     model = deepq.learn(
         env,
         "conv_only",
         convs=[(32, 8, 4), (64, 4, 2), (64, 3, 1)],
         hiddens=[256],
         dueling=True,
+        seed = 42
         lr=1e-4,
         total_timesteps=int(1e7),
         buffer_size=10000,
@@ -28,7 +30,7 @@ def main():
         print_freq=10
     )
 
-    model.save('pong_model.pkl')
+    #model.save('pong_model.pkl')
     env.close()
 
 if __name__ == '__main__':

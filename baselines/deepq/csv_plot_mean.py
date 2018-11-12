@@ -5,7 +5,7 @@ import os
 import numpy as np
 
 # Read the eps_fraction_mean.csv which contains different combinations of eps and fraction
-log = [l.split("\n")[0].split(",") for l in open(os.path.join('./log', 'eps_fraction_mean.csv')).readlines()]
+log = [l.split("\n")[0].split(",") for l in open(os.path.join('./log_car', 'eps_fraction_mean.csv')).readlines()]
 log = log[1:]  # ignore the first line which is a string comment
 log = np.array(log)
 # Add one dimension to the array (which will contain the max_reward)
