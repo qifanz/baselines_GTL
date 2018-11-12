@@ -9,7 +9,7 @@ def main():
     env = make_atari('BreakoutNoFrameskip-v4')
     env = bench.Monitor(env, logger.get_dir())
     env = deepq.wrap_atari_dqn(env)
-    logger.configure('../log/breakout', None)
+    logger.configure('../log/breakout/2', None)
 
     model = deepq.learn(
         env,
